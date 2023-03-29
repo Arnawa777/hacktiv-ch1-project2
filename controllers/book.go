@@ -19,9 +19,8 @@ func (c *Controllers) CreateBook(ctx *gin.Context) {
 	}
 
 	book := models.Book{
-		Title:       request.Title,
-		Author:      request.Author,
-		Description: request.Description,
+		Title:  request.Title,
+		Author: request.Author,
 	}
 
 	if err := c.masterDB.Create(&book).Error; err != nil {
@@ -29,7 +28,7 @@ func (c *Controllers) CreateBook(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, book)
+	ctx.JSON(http.StatusCreated, book)
 	return
 }
 
@@ -94,7 +93,12 @@ func (c *Controllers) DeleteBook(ctx *gin.Context) {
 		return
 	}
 
+	// If the delete operation is successful, return a JSON message
+	message := map[string]string{
+		"message": "Book deleted successfully",
+	}
+
 	c.masterDB.Delete(&book, id)
-	ctx.JSON(http.StatusOK, "Book deleted successfully")
+	ctx.JSON(http.StatusOK, message)
 	return
 }

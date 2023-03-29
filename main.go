@@ -28,11 +28,11 @@ func main() {
 	// Users
 	users := r.Group("/books")
 	{
-		users.POST("/create", controllers.CreateBook)
+		users.POST("/", controllers.CreateBook)
 		users.GET("/", controllers.GetBooks)
 		users.GET("/:id", controllers.GetBookById)
-		users.PUT("/update/:id", controllers.UpdateBook)
-		users.DELETE("/delete/:id", controllers.DeleteBook)
+		users.PUT("/:id", controllers.UpdateBook)
+		users.DELETE("/:id", controllers.DeleteBook)
 	}
 
 	r.Run(PORT)
